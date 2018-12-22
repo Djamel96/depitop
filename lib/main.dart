@@ -21,3 +21,17 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+class RandomWordsState extends State<RandomWords> {
+  @override                                   
+  Widget build(BuildContext context) {
+    final WordPair wordPair = new WordPair.random();
+    return new Text(wordPair.asPascalCase);
+  }                                          
+   
+}
+
+class RandomWords extends StatefulWidget {
+  @override
+  RandomWordsState createState() => new RandomWordsState();
+}
