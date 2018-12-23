@@ -22,7 +22,12 @@ class RandomWordsState extends State<RandomWords> {
 
     //WordPair is a predefined class in the package of engish words
     final List<WordPair> _suggestions = <WordPair>[];
-    final TextStyle _biggerFont = const TextStyle(fontSize: 18.0,color: Colors.greenAccent); 
+
+    //This Set stores the word pairings that the user favorited. 
+    //Set is preferred to List because a properly implemented Set does not allow 
+    //duplicate entries
+    final Set<WordPair> _saved = new Set<WordPair>();
+    final TextStyle _biggerFont = const TextStyle(fontSize: 18.0,color: Colors.orangeAccent); 
 
    Widget _buildSuggestions() {
     return new ListView.builder(
@@ -59,11 +64,30 @@ class RandomWordsState extends State<RandomWords> {
   }
 
     Widget _buildRow(WordPair pair) {
+      //In the _buildRow function, add an alreadySaved check to ensure that a word 
+      //pairing has not already been added to favorites.
+      final bool alreadySaved = _saved.contains(pair);
     return new ListTile(
       title: new Text(
         pair.asPascalCase,
         style: _biggerFont,
       ),
+      //In _buildRow() you'll also add heart-shaped icons to the ListTile objects 
+      //to enable favoriting. In the next step, you'll add the ability to interact
+      // with the heart icons.
+      trailing: new Icon(   // Add the lines from here... 
+      alreadySaved ? Icons.favorite : Icons.favorite_border,
+      color: alreadySaved ? Colors.red : null,
+    ),  
+    onTap: () {       
+      setState(() {
+        if (alreadySaved) {
+          _saved.remove(pair);
+        } else { 
+          _saved.add(pair); 
+        } 
+      });
+    },
     );
   }
 
