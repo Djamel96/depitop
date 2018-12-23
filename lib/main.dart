@@ -11,11 +11,15 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       color: Colors.red,
       title: 'Startup Name Generator',
+      theme: new ThemeData(          // Add the 3 lines from here... 
+        primaryColor: Colors.white,
+      ),
       home: new RandomWords(),
     );
   }
 }
 
+//********************************RandomWordsState******************************************************* */
 
 //the class that will show the words
 class RandomWordsState extends State<RandomWords> {
@@ -27,7 +31,7 @@ class RandomWordsState extends State<RandomWords> {
     //Set is preferred to List because a properly implemented Set does not allow 
     //duplicate entries
     final Set<WordPair> _saved = new Set<WordPair>();
-    final TextStyle _biggerFont = const TextStyle(fontSize: 18.0,color: Colors.black12); 
+    final TextStyle _biggerFont = const TextStyle(fontSize: 18.0,color: Colors.black); 
 
    Widget _buildSuggestions() {
     return new ListView.builder(
